@@ -10,7 +10,7 @@ app = Flask(__name__)
 with open('booking-system\data.json', 'r') as myfile:
     data = json.load(myfile)
     
-list1=list(data.items())
+
 
 @app.route("/", methods=["GET"])
 def index():
@@ -21,15 +21,21 @@ def index():
 def login():
     if(request.method=="POST"):
         body=request.get_json()
-        if(body["username"] in ["zaid","faik","saqib"]):
-            if(body["username"]=="faik" and body["password"]=="12345"):
+        for i in data["user"]:
+            un=i["username"]
+            ps=i["password"]
+            if(body["username"] == un):
+                if(body["password"]==ps):
                 
                 
-                return ({"message":"login successfull"})
-            else:
-                return({"message":"password does not exist"})
-        else:
-            return({"message":"user does not exist"})
+                    return ({"message":"login successfull"})
+                else:
+                    return({"message":"password does not exist"})
+                
+
+            
+        return({"message":"user does not exist"})
+                
             
         
         
