@@ -1,4 +1,4 @@
-import json, html
+import json
 from flask import Flask, jsonify, request
 
 
@@ -7,7 +7,7 @@ from flask import Flask, jsonify, request
 app = Flask(__name__)
 
 # read file
-with open('booking-system\data.json', 'r') as myfile:
+with open('\data.json', 'r') as myfile:
     data = json.load(myfile)
     
 
@@ -87,6 +87,52 @@ def venue():
         with open("\data.json", 'w') as f:
             json.dump(data, f, indent=4)
         return venues
+    
+
+
+
+    
+@app.route("/venues/<int:id>", methods=["GET","POST","DELETE"])
+def venue_id(id):
+    #VENUES READ PER ID
+    if(request.method=="GET"):
+        venues=data["venue"]
+        for i in venues:
+            if((i["ID"])==id):
+                return i
+            else:
+                return ("not found")
+                
+    
+    if(request.method=="DELETE"):
+        venues=data["venue"]
+        for i in venues:
+            if((i["ID"])==id):
+                index=venues.index(i)
+                venues.pop(index)
+                return venues  
+        else:
+            return("element not found")
+
+
+        
+
+        
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 
 

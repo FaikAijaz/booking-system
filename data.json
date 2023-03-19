@@ -2,21 +2,21 @@
     "venue":
         [
             {
-                "ID":1,
+                "ID":"1",
                 "name":"PVR",
                 "place":"Mumbai"
 
     
             },
             {   
-                "ID":2,
+                "ID":"2",
                 "name":"Inox",
                 "place":"Delhi"
 
     
             },
             {
-                "ID":3,
+                "ID":"3",
                 "name":"TV",
                 "place":"Bangaluru"
 
@@ -30,17 +30,17 @@
     "shows":
     [
         {
-            "Id":1,
+            "Id":"1",
             "name":"friends",
             "ratings":"4"
         },
         {
-            "Id":2,
+            "Id":"2",
             "name":"GOT",
             "ratings":"5"
         },
         {
-            "Id":3,
+            "Id":"3",
             "name":"stranger things",
             "ratings":"4"
         }
