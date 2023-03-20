@@ -2,8 +2,6 @@ import json
 from flask import Flask, jsonify, request
 
 
-
-
 app = Flask(__name__)
 
 # read file
@@ -16,8 +14,7 @@ with open('\data.json', 'r') as myfile:
 def index():
     return "Booking system home page"
 
-@app.route("/login", methods=["GET","POST"])
-
+@app.route("/user/login", methods=["POST"])
 def login():
     if(request.method=="POST"):
         body=request.get_json()
@@ -30,29 +27,66 @@ def login():
                 
                     return ({"message":"login successfull"})
                 else:
+                    return({"message":"password does not exist"})     
+        return({"message":"user does not exist"})
+               
+    elif(request.method=="GET"):
+        return jsonify({})
+    
+
+# Register route for user
+@app.route("/user/register", methods=["POST"])
+def register():     
+    if(request.method=="POST"):
+        body=request.get_json()
+        users=data["user"]
+        users.append(body)
+        with open("\data.json", 'w') as f:
+            json.dump(data, f, indent=4)
+        return users
+    
+# Register route for admin
+@app.route("/admin/register", methods=["POST"])
+def register():
+    if(request.method=="POST"):
+        body=request.get_json()
+        admins=data["admin"]
+        admins.append(body)
+        with open("\data.json", 'w') as f:
+            json.dump(data, f, indent=4)
+        return admins
+
+
+@app.route("/admin/login", methods=["GET","POST"])
+def login():
+    if(request.method=="POST"):
+        body=request.get_json()
+        for i in data["admin"]:
+            un=i["username"]
+            ps=i["password"]
+            if(body["username"] == un):
+                if(body["password"]==ps):
+                
+                
+                    return ({"message":"login successfull"})
+                else:
                     return({"message":"password does not exist"})
                 
 
             
-        return({"message":"user does not exist"})
-                
-            
-        
+        return({"message":"Admin does not exist"})
         
     elif(request.method=="GET"):
         return jsonify({})
 
-@app.route("/venues", methods=["GET","POST","DELETE","PUT"])
+@app.route("/venues/", methods=["GET","POST"])
 def venue():
     #READ VENUE
     if(request.method=="GET"):
         venues=[]
         for i in data["venue"]:
-
             venues.append(i)
-        
-
-        return venues
+        return jsonify(venues)
     #CREATE VENUE
     elif(request.method=="POST"):
         body=request.get_json()
@@ -62,37 +96,33 @@ def venue():
         with open("\data.json", 'w') as f:
             json.dump(data, f, indent=4)
         return venues  
-    #DELETE VENUE  
-    elif(request.method=="DELETE"):
-        body=request.get_json()
-        venues=data["venue"]
+    # #DELETE VENUE  
+    # elif(request.method=="DELETE"):
+    #     body=request.get_json()
+    #     venues=data["venue"]
         
-        index=venues.index(body)
-        venues.pop(index)
+    #     index=venues.index(body)
+    #     venues.pop(index)
         
-        with open("\data.json", 'w') as f:
-            json.dump(data, f, indent=4)
-        return venues
-    #UPDATE VENUE
-    elif(request.method=="PUT"):
-        body=request.get_json()
-        venues=data["venue"]
-        index=venues.index(body[0])
-        venues.pop(index)
-        venues.append(body[1])
-
-        
-        
-        
-        with open("\data.json", 'w') as f:
-            json.dump(data, f, indent=4)
-        return venues
+    #     with open("\data.json", 'w') as f:
+    #         json.dump(data, f, indent=4)
+    #     return venues
+    # #UPDATE VENUE
+    # elif(request.method=="PUT"):
+    #     body=request.get_json()
+    #     venues=data["venue"]
+    #     index=venues.index(body[0])
+    #     venues.pop(index)
+    #     venues.append(body[1])
+    #     with open("\data.json", 'w') as f:
+    #         json.dump(data, f, indent=4)
+    #     return venues
     
 
 
 
     
-@app.route("/venues/<int:id>", methods=["GET","POST","DELETE"])
+@app.route("/venues/<int:id>", methods=["GET","DELETE", "PUT"])
 def venue_id(id):
     #VENUES READ PER ID
     if(request.method=="GET"):
@@ -114,6 +144,18 @@ def venue_id(id):
         else:
             return("element not found")
 
+    #Update VENUE
+    if(request.method=="PUT"): 
+        body=request.get_json()
+        venues=data["venue"]
+        for i in venues:
+            if((i["ID"])==id):
+                index=venues.index(i)
+                venues.pop(index)
+                venues.append(body)
+                return venues
+        else:
+            return("element not found") 
 
         
 
