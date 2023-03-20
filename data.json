@@ -1,0 +1,67 @@
+{
+    "venue":
+        [
+            {
+                "ID":"1",
+                "name":"PVR",
+                "place":"Mumbai"
+
+    
+            },
+            {   
+                "ID":"2",
+                "name":"Inox",
+                "place":"Delhi"
+
+    
+            },
+            {
+                "ID":"3",
+                "name":"TV",
+                "place":"Bangaluru"
+
+    
+            },
+            {
+                "ID":"4"
+        }
+        ]
+    ,
+    "shows":
+    [
+        {
+            "Id":"1",
+            "name":"friends",
+            "ratings":"4"
+        },
+        {
+            "Id":"2",
+            "name":"GOT",
+            "ratings":"5"
+        },
+        {
+            "Id":"3",
+            "name":"stranger things",
+            "ratings":"4"
+        }
+    ],
+    "user":[
+        {
+            "username":"faik",
+            "password":"12345"
+        },
+        {
+            "username":"saqib",
+            "password":"54321"
+        },
+        {
+            "username":"zaid",
+            "password":"12233"        }
+    ],
+    "admin":[
+        {
+            "username":"admin",
+            "password":"112233"
+        }
+    ]
+}
