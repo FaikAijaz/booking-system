@@ -1,8 +1,9 @@
 import json
 with open('data.json', 'r') as myfile:
     data = json.load(myfile)
+shows=[]
+for i in data["show"]:
+    shows.append(i)
+print(shows)
 
-#print((data["user"][0]["username1"]))
-for i in data["venue"]:
-        venues=print(i)
         
